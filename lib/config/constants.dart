@@ -10,6 +10,10 @@ final double kTitleFontSize = 12.sp;
 const double kTitleTextSpacing = 1.0;
 final double kTitleExpandedHeight = 10.h;
 
+final EdgeInsets kMargin = EdgeInsets.symmetric(horizontal: 2.w, vertical: 1.h);
+final EdgeInsets kPadding = EdgeInsets.all(2.h);
+final kRadius = BorderRadius.circular(2.h);
+
 Color setupColor(double percentage){
   if (percentage >= 0.50){
     return kScaffoldColor;
