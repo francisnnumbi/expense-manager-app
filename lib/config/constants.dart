@@ -9,3 +9,12 @@ const Color kTextColor = Color(0xFFFFFFFF);
 final double kTitleFontSize = 12.sp;
 const double kTitleTextSpacing = 1.0;
 final double kTitleExpandedHeight = 10.h;
+
+Color setupColor(double percentage){
+  if (percentage >= 0.50){
+    return kScaffoldColor;
+  }else if (percentage >= 0.25){
+    return Colors.orange;
+  }
+  return Colors.red;
+}

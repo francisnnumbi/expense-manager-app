@@ -4,7 +4,7 @@ import 'package:expense_manager/app/models/cost_model.dart';
 
 import '../app/models/type_model.dart';
 
-final rand = Random();
+final rand = Random(20);
 final List<double> weeklySpending = [
   rand.nextDouble()*100,
   rand.nextDouble()*100,
