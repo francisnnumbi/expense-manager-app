@@ -76,18 +76,67 @@ class _DetailPageState extends State<DetailPage> {
                 child: Center(
                   child: Text(
                     '\$${amountLeft.toStringAsFixed(0)} / \$${widget.typeModel!.maxAmount!.toStringAsFixed(0)}',
-                  style: GoogleFonts.aubrey(
-                    fontWeight: FontWeight.w500,
-                    color: kSecondaryColor,
-                    fontSize: 21.sp,
-                    letterSpacing: 2.0,
-                  ),),
+                    style: GoogleFonts.aubrey(
+                      fontWeight: FontWeight.w500,
+                      color: kSecondaryColor,
+                      fontSize: 21.sp,
+                      letterSpacing: 2.0,
+                    ),
+                  ),
                 ),
               ),
-            )
+            ),
+            _buildExpenseList(),
           ],
         ),
       ),
+    );
+  }
+
+  _buildExpenseList() {
+    List<Widget> expenseList = [];
+    widget.typeModel!.expenses!.forEach((CostModel expense) {
+      expenseList.add(
+        Container(
+          height: 10.h,
+          width: 100.w,
+          margin: kMargin,
+          alignment: Alignment.center,
+          decoration: BoxDecoration(
+            color: kPrimaryColor,
+            borderRadius: kRadius,
+          ),
+          child: Padding(
+            padding: kPadding,
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Text(
+                  expense.name!,
+                  style: GoogleFonts.atma(
+                    fontWeight: FontWeight.w600,
+                    color: kTextColor,
+                    fontSize: 14.sp,
+                    letterSpacing: 1.0,
+                  ),
+                ),
+                Text(
+                  '-\$${expense.cost!.toStringAsFixed(2)}',
+                  style: GoogleFonts.atma(
+                    fontWeight: FontWeight.w600,
+                    color: kSecondaryColor,
+                    fontSize: 14.sp,
+                    letterSpacing: 2.0,
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ),
+      );
+    });
+    return Column(
+      children: expenseList,
     );
   }
 }
