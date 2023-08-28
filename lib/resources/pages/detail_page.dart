@@ -22,9 +22,9 @@ class _DetailPageState extends State<DetailPage> {
   Widget build(BuildContext context) {
     double tAmountSpent = 0;
     widget.typeModel!.expenses!.forEach((CostModel expense) {
-      tAmountSpent += expense.cost!;
+      tAmountSpent += expense.amount!;
     });
-    final double amountLeft = widget.typeModel!.maxAmount! - tAmountSpent;
+    final double amountLeft =  widget.typeModel!.maxAmount! - tAmountSpent;
     final double percentage = amountLeft / widget.typeModel!.maxAmount!;
 
     return Scaffold(
@@ -75,7 +75,7 @@ class _DetailPageState extends State<DetailPage> {
                 ),
                 child: Center(
                   child: Text(
-                    '\$${amountLeft.toStringAsFixed(0)} / \$${widget.typeModel!.maxAmount!.toStringAsFixed(0)}',
+                '\$${amountLeft.toStringAsFixed(0)} / \$${widget.typeModel!.maxAmount!.toStringAsFixed(0)}',
                     style: GoogleFonts.aubrey(
                       fontWeight: FontWeight.w500,
                       color: kSecondaryColor,
@@ -121,7 +121,7 @@ class _DetailPageState extends State<DetailPage> {
                   ),
                 ),
                 Text(
-                  '-\$${expense.cost!.toStringAsFixed(2)}',
+                  '-\$${expense.amount!.toStringAsFixed(2)}',
                   style: GoogleFonts.atma(
                     fontWeight: FontWeight.w600,
                     color: kSecondaryColor,

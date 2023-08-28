@@ -1,10 +1,13 @@
 import 'package:expense_manager/config/config.dart';
 import 'package:expense_manager/config/constants.dart';
+import 'package:expense_manager/database/tables/my_database.dart';
 import 'package:expense_manager/resources/pages/home_page.dart';
 import 'package:flutter/material.dart';
 import 'package:sizer/sizer.dart';
 
+final DB = MyDatabase();
 void main() {
+  WidgetsFlutterBinding.ensureInitialized();
   runApp(const MyApp());
 }
 

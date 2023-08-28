@@ -73,8 +73,8 @@ class _HomePageState extends State<HomePage> {
                 } else {
                   final TypeModel typeModel = typeNames[index - 1];
                   double tAmountSpent = 0;
-                  typeModel.expenses!.forEach((CostModel expense) {
-                    tAmountSpent += expense.cost!;
+                  typeModel.expenses.value.forEach((CostModel expense) {
+                    tAmountSpent += expense.amount!;
                   });
                   return _buildCategories(typeModel, tAmountSpent);
                 }
@@ -139,7 +139,7 @@ class _HomePageState extends State<HomePage> {
             LayoutBuilder(builder: (context, constraints) {
               final double maxBarWidth = constraints.maxWidth;
               final double percentage =
-                  (category.maxAmount! - tAmountSpent) / category.maxAmount!;
+                 (category.maxAmount! - tAmountSpent) / category.maxAmount!;
               double width = percentage * maxBarWidth;
               if (width < 0) width = 0;
               return Stack(
