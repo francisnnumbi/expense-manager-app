@@ -1,4 +1,4 @@
-import 'package:expense_manager/database/tables/my_database.dart';
+import 'package:expense_manager/database/my_database.dart';
 import 'package:expense_manager/main.dart';
 import 'package:get/get.dart';
 
@@ -6,7 +6,7 @@ import 'cost_model.dart';
 
 class TypeModel{
   final Category category;
-  final expenses = <CostModel>[].obs;
+  final expenses = <Cost>[].obs;
 
   TypeModel({required this.category});
 

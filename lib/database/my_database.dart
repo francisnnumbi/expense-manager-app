@@ -6,10 +6,10 @@ import 'package:drift/native.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:path/path.dart' as p;
 
-import '../daos/categories/categories_dao.dart';
-import '../daos/costs/costs_dao.dart';
-import 'categories.dart';
-import 'costs.dart';
+import 'daos/categories/categories_dao.dart';
+import 'daos/costs/costs_dao.dart';
+import 'tables/categories.dart';
+import 'tables/costs.dart';
 
 
 part 'my_database.g.dart';

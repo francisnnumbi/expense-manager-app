@@ -5,6 +5,8 @@ import 'package:expense_manager/resources/pages/home_page.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
+import '../resources/pages/categories/add_category.dart';
+
 class Routes {
   static List<GetPage> routes = [
     GetPage(
@@ -19,6 +21,11 @@ class Routes {
     GetPage(
       name: AddCost.route,
       page: () => const AddCost(),
+      //arguments:
+    ),
+    GetPage(
+      name: AddCategory.route,
+      page: () => const AddCategory(),
       //arguments:
     ),
   ];

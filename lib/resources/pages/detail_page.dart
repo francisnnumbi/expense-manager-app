@@ -7,6 +7,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:sizer/sizer.dart';
 
 import '../../app/models/cost_model.dart';
+import '../../database/my_database.dart';
 import '../widgets/circle_painter.dart';
 
 class DetailPage extends StatefulWidget {
@@ -23,8 +24,8 @@ class _DetailPageState extends State<DetailPage> {
   @override
   Widget build(BuildContext context) {
     double tAmountSpent = 0;
-    widget.typeModel!.expenses!.forEach((CostModel expense) {
-      tAmountSpent += expense.amount!;
+    widget.typeModel!.expenses!.forEach((Cost expense) {
+      tAmountSpent += expense.cost!;
     });
     final double amountLeft =  widget.typeModel!.maxAmount! - tAmountSpent;
     final double percentage = amountLeft / widget.typeModel!.maxAmount!;
@@ -97,7 +98,7 @@ class _DetailPageState extends State<DetailPage> {
 
   _buildExpenseList() {
     List<Widget> expenseList = [];
-    widget.typeModel!.expenses!.forEach((CostModel expense) {
+    widget.typeModel!.expenses!.forEach((Cost expense) {
       expenseList.add(
         Container(
           height: 10.h,
@@ -123,7 +124,7 @@ class _DetailPageState extends State<DetailPage> {
                   ),
                 ),
                 Text(
-                  '-\$${expense.amount!.toStringAsFixed(2)}',
+                  '-\$${expense.cost!.toStringAsFixed(2)}',
                   style: GoogleFonts.atma(
                     fontWeight: FontWeight.w600,
                     color: kSecondaryColor,

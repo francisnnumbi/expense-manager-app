@@ -1,7 +1,7 @@
 import 'dart:math';
 
 import 'package:expense_manager/app/models/cost_model.dart';
-import 'package:expense_manager/database/tables/my_database.dart';
+import 'package:expense_manager/database/my_database.dart';
 
 import '../app/models/type_model.dart';
 

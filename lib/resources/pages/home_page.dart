@@ -1,6 +1,8 @@
+import 'package:expense_manager/app/services/data_services.dart';
 import 'package:expense_manager/config/config.dart';
 import 'package:expense_manager/config/constants.dart';
-import 'package:expense_manager/database/mock_data.dart';
+
+//import 'package:expense_manager/database/mock_data.dart';
 import 'package:expense_manager/resources/pages/costs/add_cost.dart';
 import 'package:expense_manager/resources/pages/detail_page.dart';
 import 'package:expense_manager/resources/widgets/custom_bar.dart';
@@ -13,9 +15,12 @@ import 'package:sizer/sizer.dart';
 
 import '../../app/models/cost_model.dart';
 import '../../app/models/type_model.dart';
+import '../../database/my_database.dart';
+import 'categories/add_category.dart';
 
 class HomePage extends StatefulWidget {
   static String route = '/';
+
   HomePage({super.key});
 
   @override
@@ -26,42 +31,44 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: CustomScrollView(
-        slivers: [
-          SliverAppBar(
-            forceElevated: true,
-            floating: true,
-            expandedHeight: kTitleExpandedHeight,
-            leading: CustomBtn(
-              onPress: () {},
-              iconData: Icons.settings_outlined,
-            ),
-            flexibleSpace: FlexibleSpaceBar(
-              centerTitle: true,
-              title: Text(
-                appTitleName,
-                style: GoogleFonts.aBeeZee(
-                  fontSize: kTitleFontSize,
-                  letterSpacing: kTitleTextSpacing,
-                  fontWeight: FontWeight.w500,
-                  color: kTextColor,
+      body: Obx(() {
+        return CustomScrollView(
+          slivers: [
+            SliverAppBar(
+              forceElevated: true,
+              floating: true,
+              expandedHeight: kTitleExpandedHeight,
+              leading: CustomBtn(
+                onPress: () {},
+                iconData: Icons.settings_outlined,
+              ),
+              flexibleSpace: FlexibleSpaceBar(
+                centerTitle: true,
+                title: Text(
+                  appTitleName,
+                  style: GoogleFonts.aBeeZee(
+                    fontSize: kTitleFontSize,
+                    letterSpacing: kTitleTextSpacing,
+                    fontWeight: FontWeight.w500,
+                    color: kTextColor,
+                  ),
                 ),
               ),
+              actions: [
+                CustomBtn(
+                  onPress: () {
+                    // Get.toNamed(AddCost.route);
+                    _popDialog();
+                  },
+                  iconData: Icons.add_outlined,
+                ),
+              ],
             ),
-            actions: [
-              CustomBtn(
-                onPress: () {
-                  Get.toNamed(AddCost.route);
-                },
-                iconData: Icons.add_outlined,
-              ),
-            ],
-          ),
-          SliverList(
-            delegate: SliverChildBuilderDelegate(
-              childCount: 1 + typeNames.length,
-              (context, int index) {
-                if (index == 0) {
+            SliverList(
+              delegate: SliverChildBuilderDelegate(
+                childCount: 1+DataServices.to.categories.length,
+                    (context, int index) {
+                   if (index == 0) {
                   return Container(
                     margin: EdgeInsets.only(
                       left: 2.w,
@@ -73,29 +80,73 @@ class _HomePageState extends State<HomePage> {
                       color: kPrimaryColor,
                       borderRadius: BorderRadius.circular(3.h),
                     ),
-                    child: CustomChart(expenses: weeklySpending),
+                    child: CustomChart(expenses: DataServices.to.weeklySpendings.value),
                   );
                 } else {
-                  final TypeModel typeModel = typeNames[index - 1];
-                  double tAmountSpent = 0;
-                  typeModel.expenses.value.forEach((CostModel expense) {
-                    tAmountSpent += expense.amount!;
-                  });
-                  return _buildCategories(typeModel, tAmountSpent);
-                }
-              },
+
+                    final TypeModel typeModel =
+                    DataServices.to.categories[index -1];
+                    double tAmountSpent = 0;
+                    typeModel.expenses.value.forEach((Cost expense) {
+                      tAmountSpent += expense.cost!;
+                    });
+                    return _buildCategories(typeModel, tAmountSpent);
+                  }
+                },
+              ),
             ),
-          ),
-        ],
-      ),
+          ],
+        );
+      }),
+    );
+  }
+
+  _popDialog() {
+    Get.defaultDialog(
+        title: 'Add new',
+        titleStyle: GoogleFonts.aBeeZee(
+          fontSize: 16.sp,
+          letterSpacing: kTitleTextSpacing,
+          fontWeight: FontWeight.w500,
+          color: kTextColor,
+        ),
+        contentPadding: EdgeInsets.all(1.2.h),
+        middleText: 'What are you trying to do ?',
+        middleTextStyle: GoogleFonts.abel(
+          fontSize: 13.sp,
+          letterSpacing: kTitleTextSpacing,
+
+          color: kTextColor,
+        ),
+        backgroundColor: kPrimaryColor,
+        actions: [
+          OutlinedButton(onPressed: () {
+            Get.back();
+            Get.toNamed(AddCost.route);
+          }, child: Text('Expense', style: GoogleFonts.abel(
+            fontSize: kTitleFontSize,
+            letterSpacing: kTitleTextSpacing,
+            fontWeight: FontWeight.w500,
+            color: kTextColor,
+          ),)),
+          OutlinedButton(onPressed: () {
+            Get.back();
+            Get.toNamed(AddCategory.route);
+          }, child: Text('Category', style: GoogleFonts.abel(
+            fontSize: kTitleFontSize,
+            letterSpacing: kTitleTextSpacing,
+            fontWeight: FontWeight.w500,
+            color: kSecondaryColor,
+          ),)),
+        ]
     );
   }
 
   _buildCategories(TypeModel category, double tAmountSpent) {
     return GestureDetector(
       onTap: () {
-        Get.toNamed(DetailPage.route, arguments: {'category':category});
-       /* Navigator.push(
+        Get.toNamed(DetailPage.route, arguments: {'category': category});
+        /* Navigator.push(
           context,
           MaterialPageRoute(
             builder: (context) => DetailPage(
@@ -129,7 +180,8 @@ class _HomePageState extends State<HomePage> {
                   ),
                 ),
                 Text(
-                  '\$${(category.maxAmount! - tAmountSpent).toStringAsFixed(2)} / \$${category.maxAmount!.toStringAsFixed(2)}',
+                  '\$${(category.maxAmount! - tAmountSpent).toStringAsFixed(
+                      2)} / \$${category.maxAmount!.toStringAsFixed(2)}',
                   style: GoogleFonts.atma(
                     fontSize: 12.5.sp,
                     color: kTextColor,
@@ -145,7 +197,7 @@ class _HomePageState extends State<HomePage> {
             LayoutBuilder(builder: (context, constraints) {
               final double maxBarWidth = constraints.maxWidth;
               final double percentage =
-                 (category.maxAmount! - tAmountSpent) / category.maxAmount!;
+                  (category.maxAmount! - tAmountSpent) / category.maxAmount!;
               double width = percentage * maxBarWidth;
               if (width < 0) width = 0;
               return Stack(
