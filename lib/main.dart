@@ -2,7 +2,9 @@ import 'package:expense_manager/config/config.dart';
 import 'package:expense_manager/config/constants.dart';
 import 'package:expense_manager/database/tables/my_database.dart';
 import 'package:expense_manager/resources/pages/home_page.dart';
+import 'package:expense_manager/routes/routes.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:sizer/sizer.dart';
 
 final DB = MyDatabase();
@@ -19,7 +21,7 @@ class MyApp extends StatelessWidget {
     return Sizer(
 
       builder: (context, orientation, deiceType) {
-        return MaterialApp(
+        return GetMaterialApp(
           title: appName,
           theme: ThemeData(
             scaffoldBackgroundColor: kScaffoldColor,
@@ -32,7 +34,8 @@ class MyApp extends StatelessWidget {
             ),
             useMaterial3: true,
           ),
-          home:  HomePage(),
+         initialRoute: HomePage.route,
+          getPages: Routes.routes,
         );
       },
     );

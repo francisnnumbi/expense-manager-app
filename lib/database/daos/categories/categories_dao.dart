@@ -11,4 +11,7 @@ class CategoriesDao extends DatabaseAccessor<MyDatabase> with _$CategoriesDaoMix
 
   Stream<List<Category>> watchAllCategories() => select(categories).watch();
 
+  Future<int> insertCost(CategoriesCompanion category) => into(categories).insert(category);
+  Future<bool> updateCost(CategoriesCompanion category) => update(categories).replace(category);
+  Future<int> deleteCost(CategoriesCompanion category) => delete(categories).delete(category);
 }

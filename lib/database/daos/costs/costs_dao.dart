@@ -20,4 +20,8 @@ class CostsDao extends DatabaseAccessor<MyDatabase> with _$CostsDaoMixin {
             cost: row.readTable(costs),
             category: row.readTableOrNull(db.categories));
       }).get();
+
+  Future<int> insertCost(CostsCompanion cost) => into(costs).insert(cost);
+  Future<bool> updateCost(CostsCompanion cost) => update(costs).replace(cost);
+  Future<int> deleteCost(CostsCompanion cost) => delete(costs).delete(cost);
 }

@@ -2,6 +2,7 @@ import 'package:expense_manager/app/models/type_model.dart';
 import 'package:expense_manager/config/constants.dart';
 import 'package:expense_manager/resources/widgets/icon_btn.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:sizer/sizer.dart';
 
@@ -9,6 +10,7 @@ import '../../app/models/cost_model.dart';
 import '../widgets/circle_painter.dart';
 
 class DetailPage extends StatefulWidget {
+  static String route = '/category';
   final TypeModel? typeModel;
 
   const DetailPage({super.key, this.typeModel});
@@ -32,7 +34,7 @@ class _DetailPageState extends State<DetailPage> {
         centerTitle: true,
         leading: CustomBtn(
           onPress: () {
-            Navigator.pop(context);
+            Get.back();
           },
           iconData: Icons.arrow_back_outlined,
         ),

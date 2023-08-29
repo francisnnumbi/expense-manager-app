@@ -1,11 +1,13 @@
 import 'package:expense_manager/config/config.dart';
 import 'package:expense_manager/config/constants.dart';
 import 'package:expense_manager/database/mock_data.dart';
+import 'package:expense_manager/resources/pages/costs/add_cost.dart';
 import 'package:expense_manager/resources/pages/detail_page.dart';
 import 'package:expense_manager/resources/widgets/custom_bar.dart';
 import 'package:expense_manager/resources/widgets/custom_chart.dart';
 import 'package:expense_manager/resources/widgets/icon_btn.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:sizer/sizer.dart';
 
@@ -13,6 +15,7 @@ import '../../app/models/cost_model.dart';
 import '../../app/models/type_model.dart';
 
 class HomePage extends StatefulWidget {
+  static String route = '/';
   HomePage({super.key});
 
   @override
@@ -47,7 +50,9 @@ class _HomePageState extends State<HomePage> {
             ),
             actions: [
               CustomBtn(
-                onPress: () {},
+                onPress: () {
+                  Get.toNamed(AddCost.route);
+                },
                 iconData: Icons.add_outlined,
               ),
             ],
@@ -89,14 +94,15 @@ class _HomePageState extends State<HomePage> {
   _buildCategories(TypeModel category, double tAmountSpent) {
     return GestureDetector(
       onTap: () {
-        Navigator.push(
+        Get.toNamed(DetailPage.route, arguments: {'category':category});
+       /* Navigator.push(
           context,
           MaterialPageRoute(
             builder: (context) => DetailPage(
               typeModel: category,
             ),
           ),
-        );
+        );*/
       },
       child: Container(
         width: 100.w,
