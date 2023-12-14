@@ -25,27 +25,11 @@ class DataServices extends GetxService{
 
   @override
   void onReady() {
-    DB.categoriesDao.watchAllCategories().listen((event) {
-      categories.value = event;
-     // log(categories.value.toString());
-      for(var category in categories){
-        category.fillExpenses();
-      }
-    });
 
-    /*DB.costsDao.watchOnlyCosts().listen((event) {
-      weeklySpendings.value = event;
-    });*/
-
-    DB.costsDao.watchAllCosts().listen((event) {
-      costs.value = event;
-      for(var category in categories){
-        category.fillExpenses();
-      }
-
-      // get same date : retrieve day and add up amount
-      weeklySpendings.value = event;
-    });
     super.onReady();
+    categories.bindStream(DB.categoriesDao.watchAllCategoriesWithCosts());
+    categories.listen((event) {
+      weeklySpendings.value = event.map((e) => e.expenses).expand((element) => element).toList();
+    });
   }
 }

@@ -12,5 +12,6 @@ get id => cost.id;
 get name => cost.name;
 get date => cost.date;
 get amount => cost.cost;
+get categoryId => cost.category;
 get day => DateFormat('EE').format(DateTime.parse(date));
 }

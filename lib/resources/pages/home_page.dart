@@ -5,7 +5,6 @@ import 'package:expense_manager/config/constants.dart';
 //import 'package:expense_manager/database/mock_data.dart';
 import 'package:expense_manager/resources/pages/costs/add_cost.dart';
 import 'package:expense_manager/resources/pages/detail_page.dart';
-import 'package:expense_manager/resources/widgets/custom_bar.dart';
 import 'package:expense_manager/resources/widgets/custom_chart.dart';
 import 'package:expense_manager/resources/widgets/icon_btn.dart';
 import 'package:flutter/material.dart';
@@ -13,15 +12,13 @@ import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:sizer/sizer.dart';
 
-import '../../app/models/cost_model.dart';
 import '../../app/models/type_model.dart';
-import '../../database/my_database.dart';
 import 'categories/add_category.dart';
 
 class HomePage extends StatefulWidget {
   static String route = '/';
 
-  HomePage({super.key});
+  const HomePage({super.key});
 
   @override
   State<HomePage> createState() => _HomePageState();
@@ -80,16 +77,16 @@ class _HomePageState extends State<HomePage> {
                       color: kPrimaryColor,
                       borderRadius: BorderRadius.circular(3.h),
                     ),
-                    child: CustomChart(expenses: DataServices.to.weeklySpendings.value),
+                    child: CustomChart(expenses: DataServices.to.weeklySpendings),
                   );
                 } else {
 
                     final TypeModel typeModel =
                     DataServices.to.categories[index -1];
                     double tAmountSpent = 0;
-                    typeModel.expenses.value.forEach((Cost expense) {
-                      tAmountSpent += expense.cost!;
-                    });
+                    for (var expense in typeModel.expenses) {
+                      tAmountSpent += expense.amount!;
+                    }
                     return _buildCategories(typeModel, tAmountSpent);
                   }
                 },

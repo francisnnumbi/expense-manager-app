@@ -6,13 +6,9 @@ import 'cost_model.dart';
 
 class TypeModel{
   final Category category;
-  final expenses = <Cost>[].obs;
+  late List<CostModel> expenses = <CostModel>[];
 
   TypeModel({required this.category});
-
-  fillExpenses()async{
-    expenses.value = await DB.costsDao.getCostsByCategoryId(id);
-  }
 
   get id => category.id;
   get name => category.name;

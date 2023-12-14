@@ -29,11 +29,5 @@ _generateExpenses(){
 }
 
 List<TypeModel> typeNames =[
-   TypeModel(category: Category(id: rand.nextInt(1000), name: 'Devices', maxAmount: 2000))..expenses.value =_generateExpenses(),
-   TypeModel(category: Category(id: rand.nextInt(1000), name: 'Clothing', maxAmount: 200))..expenses.value =_generateExpenses(),
-   TypeModel(category: Category(id: rand.nextInt(1000), name: 'Food', maxAmount: 400))..expenses.value =_generateExpenses(),
-   TypeModel(category: Category(id: rand.nextInt(1000), name: 'Utilities', maxAmount: 200))..expenses.value =_generateExpenses(),
-   TypeModel(category: Category(id: rand.nextInt(1000), name: 'Entertainment', maxAmount: 100))..expenses.value =_generateExpenses(),
-   TypeModel(category: Category(id: rand.nextInt(1000), name: 'Transport', maxAmount: 100))..expenses.value =_generateExpenses(),
 
 ];

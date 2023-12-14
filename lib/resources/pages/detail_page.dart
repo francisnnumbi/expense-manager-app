@@ -24,8 +24,8 @@ class _DetailPageState extends State<DetailPage> {
   @override
   Widget build(BuildContext context) {
     double tAmountSpent = 0;
-    widget.typeModel!.expenses!.forEach((Cost expense) {
-      tAmountSpent += expense.cost!;
+    widget.typeModel!.expenses.forEach((CostModel expense) {
+      tAmountSpent += expense.amount!;
     });
     final double amountLeft =  widget.typeModel!.maxAmount! - tAmountSpent;
     final double percentage = amountLeft / widget.typeModel!.maxAmount!;
@@ -98,7 +98,7 @@ class _DetailPageState extends State<DetailPage> {
 
   _buildExpenseList() {
     List<Widget> expenseList = [];
-    widget.typeModel!.expenses!.forEach((Cost expense) {
+    widget.typeModel!.expenses.forEach((CostModel expense) {
       expenseList.add(
         Container(
           height: 10.h,
@@ -124,7 +124,7 @@ class _DetailPageState extends State<DetailPage> {
                   ),
                 ),
                 Text(
-                  '-\$${expense.cost!.toStringAsFixed(2)}',
+                  '-\$${expense.amount!.toStringAsFixed(2)}',
                   style: GoogleFonts.atma(
                     fontWeight: FontWeight.w600,
                     color: kSecondaryColor,
